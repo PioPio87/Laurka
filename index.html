@@ -52,17 +52,49 @@
       opacity: 0.8;
       border-radius: 12px;
       z-index: 1;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
   <script>
     const cats = ["kotek3.jpg", "kotek4.jpg", "kotek5.jpg"];
-    const positions = Array.from({ length: 20 }, () => ({
-      top: Math.floor(Math.random() * 90) + '%',
-      left: Math.floor(Math.random() * 90) + '%',
-      rotate: Math.floor(Math.random() * 60 - 30)
-    }));
+
+    const avoidArea = {
+      top: 25,  // % od góry
+      bottom: 75, // %
+      left: 20,
+      right: 80
+    };
+
+    const usedPositions = [];
+
+    function isOverlapping(newPos) {
+      return usedPositions.some(pos => {
+        const dx = parseInt(pos.left) - parseInt(newPos.left);
+        const dy = parseInt(pos.top) - parseInt(newPos.top);
+        return Math.abs(dx) < 12 && Math.abs(dy) < 12;
+      });
+    }
+
+    const positions = [];
+    while (positions.length < 20) {
+      const top = Math.floor(Math.random() * 100);
+      const left = Math.floor(Math.random() * 100);
+
+      if (
+        top >= avoidArea.top && top <= avoidArea.bottom &&
+        left >= avoidArea.left && left <= avoidArea.right
+      ) continue; // pomiń jeśli w centrum
+
+      const pos = { top: `${top}%`, left: `${left}%`, rotate: Math.floor(Math.random() * 60 - 30) };
+
+      if (!isOverlapping({ top, left })) {
+        usedPositions.push({ top, left });
+        positions.push(pos);
+      }
+    }
+
     positions.forEach((pos, i) => {
       const img = document.createElement('img');
       img.src = cats[i % cats.length];
@@ -81,7 +113,7 @@
       Mnóstwo uśmiechu i miłości<br />
       Kocham Cię z całego serca!❤️
     </div>
-    <img src="kotek23.jpg" alt="Kotek" class="cat-image" />
+    <img src="kotek2.jpg" alt="Kotek" class="cat-image" />
   </div>
 </body>
 </html>
