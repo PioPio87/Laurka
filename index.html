@@ -16,22 +16,32 @@
       overflow: hidden;
       position: relative;
     }
+    /* Usuwamy białe tło i obramowanie kontenera */
     .container {
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+      /* Usunięte:
       background: white;
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       padding: 2rem;
-      max-width: 500px;
-      margin: 0 auto;
-      z-index: 10;
-      position: relative;
+      */
     }
+    /* Usuwamy obramowanie i tło z placeholderów */
     .placeholder {
+      /* Usunięte:
       border: 2px dashed #aaa;
+      background-color: #f9f9f9;
       padding: 1rem;
       margin: 1rem 0;
       border-radius: 10px;
-      background-color: #f9f9f9;
+      */
+      margin: 1.5rem 0;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #555;
     }
     .cat {
       position: absolute;
@@ -65,11 +75,9 @@
   </script>
 
   <div class="container">
-    <h1>🎉 Laurka urodzinowa 🎉</h1>
     <div class="placeholder">Tutaj będą życzenia urodzinowe</div>
     <div class="placeholder">Tutaj będzie zdjęcie lub obrazek</div>
     <div class="placeholder">Tutaj ewentualnie może być muzyka / filmik</div>
-    <p>Strona testowa – wersja demonstracyjna</p>
   </div>
 </body>
 </html>
