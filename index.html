@@ -16,17 +16,17 @@
     }
 
     .container {
-      max-width: 500px;
-      margin: 0 auto;
       position: relative;
       z-index: 10;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 2rem 1rem;
-      text-align: center;
     }
 
     .wishes {
@@ -45,6 +45,7 @@
       border-radius: 12px;
       display: block;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: default;
     }
 
     .cat {
@@ -59,76 +60,50 @@
 </head>
 <body>
 
-  <audio id="muzyka" src="muzyka.mp3"></audio>
-
-  <script>
-    const cats = ["kotek3.jpg", "kotek4.jpg", "kotek5.jpg"];
-
-    const avoidArea = {
-      top: 20,  // środek — tu nie może być tła
-      bottom: 80,
-      left: 20,
-      right: 80
-    };
-
-    const usedPositions = [];
-
-    function isOverlapping(newPos) {
-      return usedPositions.some(pos => {
-        const dx = parseInt(pos.left) - parseInt(newPos.left);
-        const dy = parseInt(pos.top) - parseInt(newPos.top);
-        return Math.abs(dx) < 10 && Math.abs(dy) < 10;
-      });
-    }
-
-    const positions = [];
-    while (positions.length < 20) {
-      const top = Math.floor(Math.random() * 100);
-      const left = Math.floor(Math.random() * 100);
-
-      if (
-        top >= avoidArea.top && top <= avoidArea.bottom &&
-        left >= avoidArea.left && left <= avoidArea.right
-      ) continue;
-
-      const pos = { top: `${top}%`, left: `${left}%`, rotate: Math.floor(Math.random() * 60 - 30) };
-
-      if (!isOverlapping({ top, left })) {
-        usedPositions.push({ top, left });
-        positions.push(pos);
-      }
-    }
-
-    positions.forEach((pos, i) => {
-      const img = document.createElement('img');
-      img.src = cats[i % cats.length];
-      img.alt = "Kotek";
-      img.className = "cat";
-      img.style.top = pos.top;
-      img.style.left = pos.left;
-      img.style.transform = `rotate(${pos.rotate}deg)`;
-      document.body.appendChild(img);
-    });
-
-    // MUZYKA PO KLIKNIĘCIU
-    const audio = document.getElementById('muzyka');
-    const catImage = document.querySelector('.cat-image');
-
-    catImage.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.currentTime = 0;
-        audio.play();
-      }
-    });
-  </script>
-
   <div class="container">
     <div class="wishes">
       Wszystkiego najlepszego mój kotku<br />
       Mnóstwo uśmiechu i miłości<br />
       Kocham Cię z całego serca!❤️
     </div>
-    <img src="kotek23.jpg" alt="Kotek" class="cat-image" />
+    <img src="kotek23.jpg" alt="Kotek" class="cat-image" id="duzyKotek" />
   </div>
+
+  <script>
+    const cats = ["kotek3.jpg", "kotek4.jpg", "kotek5.jpg"];
+    const containerRect = { top: 25, bottom: 75, left: 20, right: 80 }; // obszar, którego unikamy
+    const usedPositions = [];
+
+    function losujPozycje() {
+      let top, left;
+      let proby = 0;
+      do {
+        top = Math.floor(Math.random() * 100);
+        left = Math.floor(Math.random() * 100);
+        proby++;
+        if (proby > 100) break;
+      } while (
+        top > containerRect.top &&
+        top < containerRect.bottom &&
+        left > containerRect.left &&
+        left < containerRect.right
+      );
+      return { top, left };
+    }
+
+    for (let i = 0; i < 20; i++) {
+      const { top, left } = losujPozycje();
+      const rotate = Math.floor(Math.random() * 60 - 30);
+      const img = document.createElement('img');
+      img.src = cats[i % cats.length];
+      img.alt = "Kotek";
+      img.className = "cat";
+      img.style.top = `${top}%`;
+      img.style.left = `${left}%`;
+      img.style.transform = `rotate(${rotate}deg)`;
+      document.body.appendChild(img);
+    }
+  </script>
+
 </body>
 </html>
