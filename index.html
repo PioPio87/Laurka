@@ -11,17 +11,25 @@
       background: #ffc0cb;
       color: #333;
       min-height: 100vh;
-      text-align: center;
-      padding: 2rem;
       overflow: hidden;
       position: relative;
     }
+
     .container {
       max-width: 500px;
       margin: 0 auto;
       position: relative;
       z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      box-sizing: border-box;
+      padding: 1rem;
+      text-align: center;
     }
+
     .wishes {
       font-family: 'Georgia', serif;
       font-size: 1.8rem;
@@ -30,13 +38,14 @@
       margin-bottom: 2rem;
       line-height: 1.4;
     }
+
     .cat-image {
       width: 150px;
       border-radius: 12px;
       display: block;
-      margin: 0 auto;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
+
     .cat {
       position: absolute;
       width: 90px;
@@ -58,12 +67,12 @@
     positions.forEach((pos, i) => {
       const img = document.createElement('img');
       const cat = cats[i % cats.length];
-      img.src = `https://cdn2.thecatapi.com/images/${cat}`;
+      img.src = https://cdn2.thecatapi.com/images/${cat};
       img.alt = "Kotek";
       img.className = "cat";
       img.style.top = pos.top;
       img.style.left = pos.left;
-      img.style.transform = `rotate(${pos.rotate}deg)`;
+      img.style.transform = rotate(${pos.rotate}deg);
       document.body.appendChild(img);
     });
   </script>
