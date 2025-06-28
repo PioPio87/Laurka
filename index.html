@@ -16,32 +16,26 @@
       overflow: hidden;
       position: relative;
     }
-    /* Usuwamy białe tło i obramowanie kontenera */
     .container {
       max-width: 500px;
       margin: 0 auto;
       position: relative;
       z-index: 10;
-      /* Usunięte:
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      */
     }
-    /* Usuwamy obramowanie i tło z placeholderów */
-    .placeholder {
-      /* Usunięte:
-      border: 2px dashed #aaa;
-      background-color: #f9f9f9;
-      padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 10px;
-      */
-      margin: 1.5rem 0;
-      font-size: 1.1rem;
+    .wishes {
+      font-family: 'Georgia', serif;
+      font-size: 1.8rem;
       font-style: italic;
-      color: #555;
+      color: #4a1a1a;
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+    .cat-image {
+      width: 150px;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     .cat {
       position: absolute;
@@ -75,9 +69,12 @@
   </script>
 
   <div class="container">
-    <div class="placeholder">Tutaj będą życzenia urodzinowe</div>
-    <div class="placeholder">Tutaj będzie zdjęcie lub obrazek</div>
-    <div class="placeholder">Tutaj ewentualnie może być muzyka / filmik</div>
+    <div class="wishes">
+      Wszystkiego najlepszego,<br />
+      mnóstwo uśmiechu i miłości,<br />
+      niech każdy dzień będzie piękny!
+    </div>
+    <img src="/mnt/data/3d872752-7626-45f4-bb35-3843997b53ca.png" alt="Kotek" class="cat-image" />
   </div>
 </body>
 </html>
