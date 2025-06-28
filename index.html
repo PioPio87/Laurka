@@ -24,9 +24,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      box-sizing: border-box;
-      padding: 1rem;
+      min-height: 100vh;
+      padding: 2rem 1rem;
       text-align: center;
     }
 
@@ -40,7 +39,9 @@
     }
 
     .cat-image {
-      width: 250px;
+      width: 70%;
+      max-width: 300px;
+      height: auto;
       border-radius: 12px;
       display: block;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -57,12 +58,15 @@
   </style>
 </head>
 <body>
+
+  <audio id="muzyka" src="muzyka.mp3"></audio>
+
   <script>
-    const cats = ["kotek3.jpg", "kotek4.jpg", "kotek5.jpg", "kotek6.jpg", "kotek7.jpg", "kotek8.jpg"];
+    const cats = ["kotek3.jpg", "kotek4.jpg", "kotek5.jpg"];
 
     const avoidArea = {
-      top: 25,  // % od góry
-      bottom: 75, // %
+      top: 20,  // środek — tu nie może być tła
+      bottom: 80,
       left: 20,
       right: 80
     };
@@ -73,7 +77,7 @@
       return usedPositions.some(pos => {
         const dx = parseInt(pos.left) - parseInt(newPos.left);
         const dy = parseInt(pos.top) - parseInt(newPos.top);
-        return Math.abs(dx) < 12 && Math.abs(dy) < 12;
+        return Math.abs(dx) < 10 && Math.abs(dy) < 10;
       });
     }
 
@@ -85,7 +89,7 @@
       if (
         top >= avoidArea.top && top <= avoidArea.bottom &&
         left >= avoidArea.left && left <= avoidArea.right
-      ) continue; // pomiń jeśli w centrum
+      ) continue;
 
       const pos = { top: `${top}%`, left: `${left}%`, rotate: Math.floor(Math.random() * 60 - 30) };
 
@@ -104,6 +108,17 @@
       img.style.left = pos.left;
       img.style.transform = `rotate(${pos.rotate}deg)`;
       document.body.appendChild(img);
+    });
+
+    // MUZYKA PO KLIKNIĘCIU
+    const audio = document.getElementById('muzyka');
+    const catImage = document.querySelector('.cat-image');
+
+    catImage.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.currentTime = 0;
+        audio.play();
+      }
     });
   </script>
 
