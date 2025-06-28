@@ -45,45 +45,16 @@
       display: block;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-
-    .cat {
-      position: absolute;
-      width: 90px;
-      opacity: 0.8;
-      border-radius: 12px;
-    }
   </style>
 </head>
 <body>
-  <script>
-    const cats = [
-      "bpc.jpg", "9j5.jpg", "6qi.jpg", "c2a.jpg", "a5g.jpg", "e3s.jpg", "d3t.jpg", "dj3.jpg"
-    ];
-    const positions = Array.from({ length: 20 }, (_, i) => ({
-      top: Math.floor(Math.random() * 90) + '%',
-      left: Math.floor(Math.random() * 90) + '%',
-      rotate: Math.floor(Math.random() * 60 - 30)
-    }));
-    positions.forEach((pos, i) => {
-      const img = document.createElement('img');
-      const cat = cats[i % cats.length];
-      img.src = https://cdn2.thecatapi.com/images/${cat};
-      img.alt = "Kotek";
-      img.className = "cat";
-      img.style.top = pos.top;
-      img.style.left = pos.left;
-      img.style.transform = rotate(${pos.rotate}deg);
-      document.body.appendChild(img);
-    });
-  </script>
-
   <div class="container">
     <div class="wishes">
       Wszystkiego najlepszego mój kotku<br />
       Mnóstwo uśmiechu i miłości<br />
       Kocham Cię z całego serca!❤️
     </div>
-   <img src="kotek2.jpg" alt="Kotek" class="cat-image" />
+    <img src="kotek2.jpg" alt="Kotek" class="cat-image" />
   </div>
 </body>
 </html>
