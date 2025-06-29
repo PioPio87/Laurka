@@ -14,6 +14,7 @@
       overflow: hidden;
       position: relative;
     }
+
     .container {
       position: relative;
       z-index: 10;
@@ -28,15 +29,16 @@
       min-height: 100vh;
       box-sizing: border-box;
     }
+
     .content-box {
       background: rgba(255, 255, 255, 0.85);
       padding: 2rem 1.5rem;
       border-radius: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      max-width: 100%;
       width: 100%;
       box-sizing: border-box;
     }
+
     .wishes {
       font-family: 'Georgia', serif;
       font-size: 1.8rem;
@@ -45,6 +47,7 @@
       margin-bottom: 2rem;
       line-height: 1.4;
     }
+
     .cat-image {
       width: 70%;
       max-width: 300px;
@@ -52,9 +55,10 @@
       border-radius: 12px;
       display: block;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      cursor: default;
+      cursor: pointer;
       margin: 0 auto;
     }
+
     .cat {
       position: absolute;
       width: 60px;
@@ -80,6 +84,9 @@
     </div>
   </div>
 
+  <!-- MUZYKA -->
+  <audio id="music" src="miau.mp3"></audio>
+
   <script>
     const cats = [
       "kotek3.jpg",
@@ -89,7 +96,7 @@
       "kotek7.jpg",
       "kotek8.jpg"
     ];
-    const catSize = 60; // px
+    const catSize = 60;
     const numberOfCats = 20;
     const usedPositions = [];
 
@@ -112,7 +119,7 @@
       return positions.some(pos => {
         const dx = pos.x - x;
         const dy = pos.y - y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
+        const dist = Math.sqrt(dx * dx + dy * dy);
         return dist < catSize + 20;
       });
     }
@@ -124,7 +131,10 @@
         y = Math.random() * (viewportHeight - catSize);
         attempts++;
         if (attempts > 300) break;
-      } while (isOverlappingContentBox(x, y) || isOverlappingCats(x, y, usedPositions));
+      } while (
+        isOverlappingContentBox(x, y) ||
+        isOverlappingCats(x, y, usedPositions)
+      );
 
       usedPositions.push({ x, y });
 
@@ -137,8 +147,18 @@
       img.style.transform = `rotate(${Math.floor(Math.random() * 60 - 30)}deg)`;
       document.body.appendChild(img);
     }
+
+    // MUZYKA
+    const audio = document.getElementById('music');
+    const mainCat = document.querySelector('.cat-image');
+
+    mainCat.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
   </script>
 </body>
 </html>
-
-
