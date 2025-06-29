@@ -13,18 +13,18 @@
       height: 100vh;
       overflow: hidden;
       position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
       position: relative;
       z-index: 10;
-      max-width: 500px;
-      width: 100%;
-      padding: 1rem;
       box-sizing: border-box;
+      padding: 1rem;
     }
 
     .content-box {
@@ -33,6 +33,7 @@
       border-radius: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       width: 100%;
+      max-width: 500px;
       text-align: center;
     }
 
@@ -145,7 +146,7 @@
       document.body.appendChild(img);
     }
 
-    // MUZYKA — odtwarzanie po kliknięciu dużego kotka
+    // MUZYKA — kliknięcie w dużego kotka
     const audio = document.getElementById('music');
     const mainCat = document.querySelector('.cat-image');
 
@@ -159,3 +160,4 @@
   </script>
 </body>
 </html>
+
