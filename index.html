@@ -28,6 +28,15 @@
       min-height: 100vh;
       box-sizing: border-box;
     }
+    .content-box {
+      background: rgba(255, 255, 255, 0.85); /* białe, półprzezroczyste */
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
     .wishes {
       font-family: 'Georgia', serif;
       font-size: 1.8rem;
@@ -44,6 +53,7 @@
       display: block;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       cursor: default;
+      margin: 0 auto;
     }
     .cat {
       position: absolute;
@@ -59,60 +69,57 @@
 </head>
 <body>
   <div class="container" id="container">
-    <div class="wishes">
-      Wszystkiego najlepszego mój kotku<br />
-      Mnóstwo uśmiechu i miłości<br />
-      Kocham Cię z całego serca!❤️
+    <div class="content-box">
+      <div class="wishes">
+        Wszystkiego najlepszego mój kotku<br />
+        Mnóstwo uśmiechu i miłości<br />
+        Kocham Cię z całego serca!❤️
+      </div>
+      <img src="kotek23.jpg" alt="Kotek" class="cat-image" />
     </div>
-    <img src="kotek23.jpg" alt="Kotek" class="cat-image" />
   </div>
+
   <script>
     const cats = ["kotek3.jpg", "kotek4.jpg", "kotek5.jpg", "kotek6.jpg", "kotek7.jpg", "kotek8.jpg"];
     const catSize = 60; // px
     const numberOfCats = 20;
     const usedPositions = [];
 
-  
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-   
-    const topZone = { xMin: 0, xMax: viewportWidth - catSize, yMin: 0, yMax: viewportHeight * 0.2 - catSize };
-   
-    const leftZone = { xMin: 0, xMax: viewportWidth * 0.15 - catSize, yMin: viewportHeight * 0.2, yMax: viewportHeight * 0.7 - catSize };
-    
-    const rightZone = { xMin: viewportWidth * 0.85, xMax: viewportWidth - catSize, yMin: viewportHeight * 0.2, yMax: viewportHeight * 0.7 - catSize };
-    
-    const bottomZone = { xMin: 0, xMax: viewportWidth - catSize, yMin: viewportHeight * 0.7, yMax: viewportHeight - catSize };
+    // Pobierz pozycję i rozmiar content-box, aby kotki tła nie nachodziły
+    const contentBox = document.querySelector('.content-box');
+    const contentRect = contentBox.getBoundingClientRect();
 
-  
-    function randomPositionInZone(zone) {
-      const x = Math.random() * (zone.xMax - zone.xMin) + zone.xMin;
-      const y = Math.random() * (zone.yMax - zone.yMin) + zone.yMin;
-      return { x, y };
+    // Funkcja sprawdzająca, czy kotek nakłada się na content-box (z marginesem)
+    function isOverlappingContentBox(x, y, margin = 15) {
+      return (
+        x + catSize > contentRect.left - margin &&
+        x < contentRect.right + margin &&
+        y + catSize > contentRect.top - margin &&
+        y < contentRect.bottom + margin
+      );
     }
 
-    
-    function isOverlapping(x, y, positions) {
+    // Sprawdza kolizje między kotkami tła
+    function isOverlappingCats(x, y, positions) {
       return positions.some(pos => {
         const dx = pos.x - x;
         const dy = pos.y - y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < catSize + 10; 
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        return dist < catSize + 10;
       });
     }
-
-    const zones = [topZone, leftZone, rightZone, bottomZone];
 
     for (let i = 0; i < numberOfCats; i++) {
       let x, y, attempts = 0;
       do {
-        
-        const zone = zones[Math.floor(Math.random() * zones.length)];
-        ({ x, y } = randomPositionInZone(zone));
+        x = Math.random() * (viewportWidth - catSize);
+        y = Math.random() * (viewportHeight - catSize);
         attempts++;
-        if (attempts > 100) break; 
-      } while (isOverlapping(x, y, usedPositions));
+        if (attempts > 200) break;
+      } while (isOverlappingContentBox(x, y) || isOverlappingCats(x, y, usedPositions));
 
       usedPositions.push({ x, y });
 
@@ -120,11 +127,12 @@
       img.src = cats[i % cats.length];
       img.alt = "Kotek";
       img.className = "cat";
-      img.style.top = `${y}px`;
-      img.style.left = `${x}px`;
+      img.style.top = y + 'px';
+      img.style.left = x + 'px';
       img.style.transform = `rotate(${Math.floor(Math.random() * 60 - 30)}deg)`;
       document.body.appendChild(img);
     }
   </script>
 </body>
 </html>
+
