@@ -10,24 +10,22 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #ffc0cb;
       color: #333;
-      min-height: 100vh;
+      height: 100vh;
       overflow: hidden;
       position: relative;
-      display: flex;
-      justify-content: center;
-      padding: 1rem 0;
     }
 
     .container {
-      max-width: 500px;
-      width: 100%;
-      box-sizing: border-box;
-      margin: auto; /* wyśrodkowanie pionowe */
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+      z-index: 10;
+      box-sizing: border-box;
+      padding: 1rem;
+      transform: translateY(-6vh); /* podniesienie do góry */
     }
 
     .content-box {
@@ -36,9 +34,8 @@
       border-radius: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       width: 100%;
+      max-width: 500px;
       text-align: center;
-      box-sizing: border-box;
-      margin: auto;
     }
 
     .wishes {
