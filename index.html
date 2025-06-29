@@ -29,7 +29,7 @@
       box-sizing: border-box;
     }
     .content-box {
-      background: rgba(255, 255, 255, 0.85); /* białe, półprzezroczyste */
+      background: rgba(255, 255, 255, 0.85);
       padding: 2rem 1.5rem;
       border-radius: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -80,7 +80,14 @@
   </div>
 
   <script>
-    const cats = ["kotek3.jpg", "kotek4.jpg", "kotek5.jpg", "kotek6.jpg", "kotek7.jpg", "kotek8.jpg"];
+    const cats = [
+      "kotek3.jpg",
+      "kotek4.jpg",
+      "kotek5.jpg",
+      "kotek6.jpg",
+      "kotek7.jpg",
+      "kotek8.jpg"
+    ];
     const catSize = 60; // px
     const numberOfCats = 20;
     const usedPositions = [];
@@ -88,11 +95,9 @@
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    // Pobierz pozycję i rozmiar content-box, aby kotki tła nie nachodziły
     const contentBox = document.querySelector('.content-box');
     const contentRect = contentBox.getBoundingClientRect();
 
-    // Funkcja sprawdzająca, czy kotek nakłada się na content-box (z marginesem)
     function isOverlappingContentBox(x, y, margin = 15) {
       return (
         x + catSize > contentRect.left - margin &&
@@ -102,13 +107,12 @@
       );
     }
 
-    // Sprawdza kolizje między kotkami tła
     function isOverlappingCats(x, y, positions) {
       return positions.some(pos => {
         const dx = pos.x - x;
         const dy = pos.y - y;
         const dist = Math.sqrt(dx*dx + dy*dy);
-        return dist < catSize + 10;
+        return dist < catSize + 20;
       });
     }
 
@@ -118,7 +122,7 @@
         x = Math.random() * (viewportWidth - catSize);
         y = Math.random() * (viewportHeight - catSize);
         attempts++;
-        if (attempts > 200) break;
+        if (attempts > 300) break;
       } while (isOverlappingContentBox(x, y) || isOverlappingCats(x, y, usedPositions));
 
       usedPositions.push({ x, y });
@@ -135,4 +139,5 @@
   </script>
 </body>
 </html>
+
 
